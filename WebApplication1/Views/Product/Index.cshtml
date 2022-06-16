@@ -1,0 +1,73 @@
+﻿@model List<WebApplication1.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ProductName
+            </th>
+            <th>
+                ProductPrice
+            </th>
+            <th>
+                Açıklama
+            </th>
+            <th>
+                Resim
+            </th>
+            <th>
+                ProductIsActive
+            </th>
+            <th>
+                ProductCreatedDate
+            </th>
+            <th>
+                Category
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.ProductName
+                </td>
+                <td>
+                    @item.ProductPrice
+                </td>
+                <td>
+                    @item.ProductDescription
+                </td>
+                <td>
+                    @item.Resim
+                </td>
+                <td>
+                    @item.ProductIsActive
+                </td>
+                <td>
+                    @item.ProductCreatedDate
+                </td>
+                <td>
+                    @item.Category.CategoryName
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

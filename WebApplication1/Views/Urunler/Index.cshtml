@@ -1,0 +1,119 @@
+﻿@using WebApplication1.Helper
+@model PaginatedList<WebApplication1.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Ürünler</h1>
+
+<div class="row">
+    <div class="col-3">
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                <br />
+                <p>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInputValue" name="Search" placeholder="asd" value="@ViewData["CurrentFilter"]">
+                        <label for="floatingInputValue">Find by name</label>
+                    </div>
+                    <br />
+                    <input type="submit" value="Ara" class="btn btn-success" /> |
+                    <a asp-action="Index">Back to Full List</a>
+                </p>
+            </div>
+        </form>
+
+
+        <div data-target="https://www.gittigidiyor.com/dizustu-laptop-notebook-bilgisayar?yff=1" class="xp8iyo-0 sc-1o4zmur-1 kVpYQH hilsgj">
+            <label for="Ücretsiz Kargo" data-testid="switch_label" class="xp8iyo-5 bEQvfq">
+                <span class="sc-1tdlrg-0 yf6n83-0 eSdOUH elANpG">Ücretsiz Kargo</span>
+                <span class="sc-1tdlrg-0 yf6n83-0 foPwlf fHxBLh xp8iyo-4 jLzump" data-testid="switch_count">(22)</span>
+            </label>
+            <button data-testid="switch_button" id="Ücretsiz Kargo" aria-label="Ücretsiz Kargo" class="xp8iyo-1 sc-1o4zmur-0 gternE bXXygE">
+                <div class="xp8iyo-2 frRQHI"></div>
+            </button>
+        </div>
+
+
+        <div class="content-contentRoot content-vertical">
+            <a title="Asus Laptop &amp; Notebook" class="seoAnchorLink-visuallyHidden backToTopVisible" href="/asus/laptop-notebook-dizustu-bilgisayarlar-c-98">Asus Laptop &amp; Notebook</a>
+            <label class="moria-Checkbox-hgjAyY esWf sssp3zw4hhi content-contentItem">
+                <input type="checkbox" color="#FF6000" value="asus" name="markalar" class="moria-Checkbox-jELdKX gqOBqs sx5zsaxf4jl"><div class="moria-Checkbox-bSmeLS ckSppA suhancj6eod content-checkboxLabelWrapper">
+                    <div class="content-label">Asus</div>
+                </div>
+            </label>
+        </div>
+
+
+        <form asp-action="Index" method="get">
+            <div class="form-group form-check">
+                @{
+
+                    var c = ViewBag.Category;
+                    foreach (var item in c)
+                    {
+                        <div class="form-check form-switch">
+                            <input type="checkbox" name="kategori" value="@item.CategoryId" class="form-check-input" role="switch" />
+                            <label for="kategori">@item.CategoryName</label>
+                        </div>
+                    }
+                }
+                <input class="btn btn-danger" type="submit" value="seç" />
+            </div>
+        </form>
+    </div>
+
+    <div class="col-9">
+        <div class="row row-cols-1 row-cols-md-3 g-4 ">
+            @foreach (var item in Model)
+            {
+
+                <div class="col">
+                    <div class="card h-100">
+
+                        <a asp-action="Details" asp-route-id="@item.ProductId">
+                            <img src="~/resimler/@item.Resim" class="card-img-top" alt="..." width="150" height="350" />
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">@item.ProductName</h5>
+                            <h6 class="card-title">Fiyatı:@item.ProductPrice</h6>
+                            <p class="card-text">@item.ProductDescription</p>
+                            <p class="card-text">@item.CategoryId</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">@item.ProductCreatedDate</small>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<div class="d-flex justify-content-end">
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-info @prevDisabled">
+        Previous
+    </a>
+
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-info @nextDisabled">
+        Next
+    </a>
+</div>
